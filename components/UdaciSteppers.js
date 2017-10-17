@@ -16,18 +16,24 @@ const MetricCounter = styled.View`
   align-items: center;
 `
 
-const iosButton = styled.TouchableOpacity`
+const IosButton = styled.TouchableOpacity`
   background-color: ${white};
   border-color: ${purple};
   border-width: 1;
   border-radius: 3;
-  padding: 5 25;
+  padding-top: 5;
+  padding-bottom: 5;
+  padding-left: 25;
+  padding-right: 25;
 `
 
 const androidButton = styled.TouchableOpacity`
   background-color: ${purple};
   margin: 5;
-  padding: 10;
+  padding-top: 10;
+  padding-bottom: 10;
+  padding-left: 10;
+  padding-right: 10;
   border-radius: 2;
 `
 
@@ -36,16 +42,16 @@ const UdaciSteppers = ({ max, unit, step, value, onIncrement, onDecrement }) => 
 
     {Platform.OS === 'ios'
       ? <View style={{flexDirection: 'row'}}>
-          <iosButton
+          <IosButton
             style={{ borderTopRightRadius: 0, borderBottomRightRadius: 0}}
             onPress={onDecrement}>
             <Entypo name='minus' size={30} color={purple} />
-          </iosButton>
-          <iosButton
+          </IosButton>
+          <IosButton
             style={{borderTopLeftRadius: 0, borderBottomLeftRadius: 0}}
             onPress={onIncrement}>
             <Entypo name='plus' size={30} color={purple} />
-          </iosButton>
+          </IosButton>
         </View>
       : <View style={{flexDirection: 'row'}}>
           <androidButton
