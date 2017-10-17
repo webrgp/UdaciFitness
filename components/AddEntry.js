@@ -17,7 +17,10 @@ import { white, purple } from '../utils/colors';
 
 const Container = styled.View`
   flex: 1;
-  padding: 20;
+  padding-top: 20;
+  padding-bottom: 20;
+  padding-left: 20;
+  padding-right: 20;
   background-color: ${white};
 `;
 
