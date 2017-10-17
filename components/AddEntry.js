@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, TouchableOpacity, Platform, StyleSheet } from 'react-native';
+import styled from 'styled-components/native';
 import { getMetricMetaInfo, timeToString, getDailyReminderValue } from '../utils/helpers';
 import { Ionicons } from '@expo/vector-icons';
 
@@ -13,6 +14,26 @@ import { connect } from 'react-redux';
 import { addEntry } from '../actions';
 
 import { white, purple } from '../utils/colors';
+
+const Container = styled.View`
+  flex: 1;
+  padding: 20;
+  background-color: ${white};
+`;
+
+const Center = styled.View`
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  margin-left: 30;
+  margin-right: 30;
+`;
+
+const Row = styled.View`
+  flex: 1;
+  flex-direction: row;
+  align-items: center;
+`;
 
 const SubmitBtn = ({ onPress }) => (
   <TouchableOpacity
@@ -104,31 +125,31 @@ class AddEntry extends Component {
 
     if (this.props.alreadyLogged) {
       return (
-        <View style={ styles.center }>
+        <Center>
           <Ionicons
             name={Platform.OS === 'ios' ? 'ios-happy-outline' : 'md-happy'}
             size={100}
           />
           <Text style={{textAlign: 'center'}}>You already logged your information for today</Text>
-          <TextButton 
+          <TextButton
             style={{ padding: 10 }}
             onPress={this.reset}
           >Reset</TextButton>
-        </View>
+        </Center>
       )
     }
 
     return (
-      <View style={ styles.container }>
+      <Container>
         <DateHeader date={(new Date()).toLocaleDateString()} />
         {Object.keys(metaInfo).map( key => {
           const { getIcon, type, ...rest} = metaInfo[key];
           const value = this.state[key];
 
           return (
-            <View key={key} style={ styles.row }>
+            <Row key={key}>
               { getIcon() }
-              { type === 'slider' 
+              { type === 'slider'
                 ? <UdaciSlider
                     value={value}
                     onChange={ (value) => this.slide(key, value)}
@@ -141,26 +162,16 @@ class AddEntry extends Component {
                     {...rest}
                   />
               }
-            </View>
+            </Row>
           )
         })}
         <SubmitBtn onPress={this.submit} />
-      </View>
+      </Container>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 20,
-    backgroundColor: white,
-  },
-  row: {
-    flexDirection: 'row',
-    flex: 1,
-    alignItems: 'center',
-  },
   iosSubmitBtn: {
     backgroundColor: purple,
     padding: 10,
@@ -184,13 +195,6 @@ const styles = StyleSheet.create({
     color: white,
     fontSize: 22,
     textAlign: 'center',
-  },
-  center: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginLeft: 30,
-    marginRight: 30,
   }
 });
 
